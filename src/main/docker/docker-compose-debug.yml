@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-debug
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/assignment-db
+      - SPRING_DATASOURCE_USERNAME=assignment-postgres
+      - SPRING_DATASOURCE_PASSWORD=assignment-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+          
+  db:
+    image: 'postgres:15.0-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_DB=assignment-db
+      - POSTGRES_USER=assignment-postgres
+      - POSTGRES_PASSWORD=assignment-postgres
+    ports:
+      - "5432:5432"

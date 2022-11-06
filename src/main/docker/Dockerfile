@@ -1,4 +1,0 @@
-FROM openjdk:17-oracle
-ARG JAR_FILE=*.jar
-COPY ${JAR_FILE} application.jar
-ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n", "-jar", "application.jar"]
