@@ -29,7 +29,6 @@ public class CreateBranchBean {
 	@Schema(description = "Correlation UUID")
 	private UUID correlationId;
 
-	@NotNull
 	@Valid
 	@Schema(description = "Version")
 	private Integer version;

@@ -26,6 +26,19 @@ You can head to [http://localhost:8080/swagger-ui.html](http://localhost:8080/sw
 
 ## Usage
 
+### Users and Screens
+
+No controller was created to allow for the manipulation of users and screens. so by default the application starts with the following users and screens to be used.
+
+```
+'e4bdcb7d-6510-4b86-9ba6-2e05577834f2' - 'testUser1'
+'2df80744-8101-43d4-b676-529e5e93cda8' - 'testUser2'
+'b83d82e9-71d7-455b-9fa0-9242986299b9' - 'testUser3'
+
+'61dd27f5-1c92-4464-bb29-9395dd0841f7' - 'testScreen1'
+'bd88542b-62a4-4f82-8eb1-04e39594dcb0' - 'testScreen2'
+```
+### Endpoints
 The application provides, as stated before, a swagger that provides all the different endpoint that are exposed.
 
 Two controllers exist that expose endpoints:
@@ -128,6 +141,8 @@ This application provides a Kibana visualization of the aggregated logs. Access 
 
 Head to Discover tab and you will see the aggregate logs of the containers running. If you wish to focus on app logs, click on the magnifier symbol on "docker.container.image > docker-app"
 
+If no index pattern is defined when you first run the application, please create one with the name "dockerlogs". After that, choose "@timestamp" from the dropdown menu and create the index pattern. Then follow the previous instructions to see the logs.
+
 ## Notes
 
 Created an abstract class to represent filters and branches seing as they have so many common properties. Created separated deleted tables to simplify the queries to get non deprecated filers and branches (essential its only an audit table, for reference).
@@ -141,6 +156,6 @@ The user field on filter/branch corresponds to the user that did the action (cre
 
 - Due to time constraints (not enough time), I did not do unit tests and performance tests.
 - No default data is being inserted through docker. Despite knowing the existance of "docker-entrypoint-initdb.d" to use with the postgres image, I had an issue derived from the way I'm generating the database. Seing as the app is the one generating the tables and the way I configured the containers forces the app to start after the postgres container, when the sql script runs on the container startup, the tables don't exist yet, so it's not able to insert the mock data. This obviously has a solution, I just didn't have the time to work arround the issue. As a workaround, I used the datasource-initialization mechanism provides to insert users and screens by default.
-
+- It's possible to update old versions of the filters/branches in this version of the project. This causes a conflict with versioning (two filter entries will have the same version). Due to lack of time, I was not able to give a proper fix to this issue.
 
 

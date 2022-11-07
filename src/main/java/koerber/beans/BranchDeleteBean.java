@@ -29,7 +29,6 @@ public class BranchDeleteBean {
 	@Schema(description = "User UUID")
 	private UUID userId;
 
-	@NotNull
 	@Valid
 	@Schema(description = "Version")
 	private Integer version;

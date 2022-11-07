@@ -91,11 +91,11 @@ public class MyFilterController {
 	@PutMapping(consumes = { "application/json" }, produces = { "application/json" })
 	public ResponseEntity<FilterBean> update(
 			@Parameter(description = "Parameter containing the required values to update a filter.", required = true) @NotNull @Valid @RequestBody FilterUpdateBean updateFilterBean,
-			@RequestParam Boolean deprecateBranches) {
+			@Parameter(description = "Boolean flag that decides if associated branches should be migrated or deprecated. False by default", required = true) @Valid @RequestParam Boolean deprecateBranches) {
 		logger.debug("Update filter request initiated");
 		try {
 			FilterDTO update = myFilterService.update(modelMapper.map(updateFilterBean, UpdateFilterDTO.class),
-					deprecateBranches);
+					deprecateBranches == null ? false : deprecateBranches);
 			logger.debug("Update filter request completed");
 			return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(update, FilterBean.class));
 		} catch (KoerberAssignmentNotFoundException k) {
