@@ -164,7 +164,7 @@ public class BranchController {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = FilterBean.class)) }) })
 	@PostMapping(path = "/merge", consumes = { "application/json" }, produces = { "application/json" })
 	public ResponseEntity<FilterBean> mergeBranch(
-			@Parameter(description = "Parameter containing the required values to merge a branch.", required = true) @NotNull @Valid BranchMergeBean mergeBranchBean) {
+			@Parameter(description = "Parameter containing the required values to merge a branch.", required = true) @NotNull @Valid @RequestBody BranchMergeBean mergeBranchBean) {
 		logger.debug("Merge branch request initiated");
 		try {
 			FilterDTO mergeBranch = branchService.mergeBranch(modelMapper.map(mergeBranchBean, MergeBranchDTO.class));
