@@ -17,8 +17,6 @@ import org.modelmapper.ModelMapper;
  */
 public class GenericUtils {
 
-	private static ModelMapper modelMapper = new ModelMapper();
-
 	/**
 	 * Maps a given collection of type T to a List of type M
 	 * 
@@ -29,6 +27,7 @@ public class GenericUtils {
 	 * @return List of mapped values.
 	 */
 	public static <M, T> List<M> mapAll(final Collection<T> col, Class<M> toMap) {
+		ModelMapper modelMapper = new ModelMapper();
 		return col.stream().map(entity -> modelMapper.map(entity, toMap)).collect(Collectors.toList());
 	}
 
