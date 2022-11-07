@@ -17,7 +17,7 @@ import org.modelmapper.ModelMapper;
  */
 public class GenericUtils {
 
-	private static ModelMapper modelMapper;
+	private static ModelMapper modelMapper = new ModelMapper();
 
 	/**
 	 * Maps a given collection of type T to a List of type M
