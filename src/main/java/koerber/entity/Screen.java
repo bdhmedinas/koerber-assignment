@@ -23,15 +23,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Screen {
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name = "SCREEN_ID")
 	private UUID screenId;
-	
+
 	@Column(name = "NAME")
 	private String name;
-	
+
 	@Column(name = "CONTENT_JSON")
 	private String contentJson;
 }

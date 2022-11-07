@@ -18,6 +18,7 @@ services:
       - "8000:8000"
     links:
       - "logstash:logstash"
+    restart: on-failure:10
 
   db:
     image: 'postgres:15.0-alpine'
@@ -26,15 +27,14 @@ services:
       - POSTGRES_DB=assignment-db
       - POSTGRES_USER=assignment-postgres
       - POSTGRES_PASSWORD=assignment-postgres
-    ports:
-      - "5432:5432"
     depends_on:
       - kibana
+    ports:
+      - "5432:5432"
     links:
       - "logstash:logstash"
     volumes:
-      - ./data/db:/var/lib/postgresql/data
-      - ./sql/mock_data.sql:/docker-entrypoint-initdb.d/mock_data.sql
+      - ./vol/data/db:/var/lib/postgresql/data
 
   filebeat:
     build:
@@ -44,7 +44,7 @@ services:
     volumes:
       - /var/lib/docker:/var/lib/docker:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - $HOME/app:/var/app
+      - ./vol/app:/var/app
 
   logstash:
     build:
@@ -52,7 +52,7 @@ services:
     ports:
       - "5044:5044"
     volumes:
-      - $HOME/app:/var/app
+      - ./vol/app:/var/app
     links:
       - "elasticsearch:elasticsearch"
     depends_on:
@@ -63,7 +63,7 @@ services:
     environment:
       - discovery.type=single-node
     volumes:
-      - $HOME/app:/usr/share/elasticsearch/data
+      - ./vol/app:/usr/share/elasticsearch/data
 
     ports:
       - "9200:9200"
@@ -77,7 +77,7 @@ services:
     links:
       - "elasticsearch:elasticsearch"
     volumes:
-      - $HOME/app:/var/app
+      - ./vol/app:/var/app
     ports:
       - "5601:5601"
     depends_on:
