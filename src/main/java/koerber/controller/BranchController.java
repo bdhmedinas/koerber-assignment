@@ -134,7 +134,7 @@ public class BranchController {
 	}
 
 	@Operation(summary = "Get branches of filter", description = "Fetches a list of all branches of a filter. Uses correlation id and version to identify target filter. If no version is provided, latest is targeted.", tags = {
-			"myfilter" })
+			"branch" })
 	@ApiResponses(value = { @ApiResponse(description = "successful operation", responseCode = "200", content = {
 			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = BranchBean.class))) }) })
 	@GetMapping(produces = { "application/json" })

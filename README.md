@@ -34,7 +34,7 @@ Two controllers exist that expose endpoints:
 
 ### Filter
 
-#### [POST] /myfilter
+#### [POST] /myfilter - Create filter
 ```curl
 curl --location --request POST 'http://localhost:8080/myfilter' \
 --header 'Content-Type: application/json' \
@@ -46,7 +46,7 @@ curl --location --request POST 'http://localhost:8080/myfilter' \
     "screenId": "61dd27f5-1c92-4464-bb29-9395dd0841f7"
 }'
 ```
-#### [PUT] /myfilter
+#### [PUT] /myfilter - Update filter
 ```curl
 curl --location --request PUT 'http://localhost:8080/myfilter?deprecateBranches=true' \
 --header 'Content-Type: application/json' \
@@ -56,7 +56,7 @@ curl --location --request PUT 'http://localhost:8080/myfilter?deprecateBranches=
     "name" : "updatedName"
 }'
 ```
-#### [DELETE] /myfilter
+#### [DELETE] /myfilter - Delete filter
 ```curl
 curl --location --request DELETE 'http://localhost:8080/myfilter' \
 --header 'Content-Type: application/json' \
@@ -66,22 +66,22 @@ curl --location --request DELETE 'http://localhost:8080/myfilter' \
     "version" : 5
 }'
 ```
-#### [GET] /myfilter/{uuid}
+#### [GET] /myfilter/{uuid} - Get versions of filter
 ```curl
 curl --location --request GET 'http://localhost:8080/myfilter/d32a311d-c353-415f-bee9-1389402d3ece'
 ```
-#### [GET] /myfilter/version/{uuid}
+#### [GET] /myfilter/version/{uuid} - Get specific version of filter
 ```curl
 curl --location --request GET 'http://localhost:8080/myfilter/version/d32a311d-c353-415f-bee9-1389402d3ece?version=7'
 ```
-#### [GET] /myfilter/latest
+#### [GET] /myfilter/latest - Get latest version of filters
 ```curl
 curl --location --request GET 'http://localhost:8080/myfilter/latest
 ```
 
 ### Branch
 
-#### [POST] /branch
+#### [POST] /branch - Create branch
 ```curl
 curl --location --request POST 'http://localhost:8080/branch' \
 --header 'Content-Type: application/json' \
@@ -89,7 +89,7 @@ curl --location --request POST 'http://localhost:8080/branch' \
     "correlationId": "f421b268-4dc8-4977-b67f-1b01c47ccb25"
 }'
 ```
-#### [PUT] /branch
+#### [PUT] /branch - Update branch
 ```curl
 curl --location --request PUT 'http://localhost:8080/branch' \
 --header 'Content-Type: application/json' \
@@ -99,7 +99,7 @@ curl --location --request PUT 'http://localhost:8080/branch' \
     "name": "branchUpdatedBeforeMerge"
 }'
 ```
-#### [DELETE] /branch
+#### [DELETE] /branch - Delete branch
 ```curl
 curl --location --request DELETE 'http://localhost:8080/branch' \
 --header 'Content-Type: application/json' \
@@ -108,11 +108,11 @@ curl --location --request DELETE 'http://localhost:8080/branch' \
     "userId": "b83d82e9-71d7-455b-9fa0-9242986299b9"
 }'
 ```
-#### [GET] /branch
+#### [GET] /branch - Get branches of a filter
 ```curl
 curl --location --request GET 'http://localhost:8080/branch?correlationId=a69a7568-5d8b-4012-be8d-a2cafd97a834&version=3'
 ```
-#### [POST] /branch/merge
+#### [POST] /branch/merge - Merge branch
 ```curl
 curl --location --request POST 'http://localhost:8080/branch/merge' \
 --header 'Content-Type: application/json' \
@@ -140,7 +140,7 @@ The user field on filter/branch corresponds to the user that did the action (cre
 ## Shortcomings
 
 - Due to time constraints (not enough time), I did not do unit tests and performance tests.
-- No default data is being inserted through docker. Despite knowing the existance of "docker-entrypoint-initdb.d" to use with the postgres image, I had an issue derived from the way I'm generating the database. Seing as the app is the one generating the tables and the way I configured the containers forces the app to start after the postgres container, when the sql script runs on the container startup, the tables don't exist yet, so it's not able to insert the mock data. This obviously has a solution, I just didn't have the time to work arround the issue.
+- No default data is being inserted through docker. Despite knowing the existance of "docker-entrypoint-initdb.d" to use with the postgres image, I had an issue derived from the way I'm generating the database. Seing as the app is the one generating the tables and the way I configured the containers forces the app to start after the postgres container, when the sql script runs on the container startup, the tables don't exist yet, so it's not able to insert the mock data. This obviously has a solution, I just didn't have the time to work arround the issue. As a workaround, I used the datasource-initialization mechanism provides to insert users and screens by default.
 
 
 
