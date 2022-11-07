@@ -16,7 +16,9 @@ services:
     ports:
       - "8080:8080"
       - "8000:8000"
-                
+    links:
+      - "logstash:logstash"
+
   db:
     image: 'postgres:15.0-alpine'
     container_name: db
@@ -26,3 +28,54 @@ services:
       - POSTGRES_PASSWORD=assignment-postgres
     ports:
       - "5432:5432"
+    depends_on:
+      - kibana
+    links:
+      - "logstash:logstash"
+
+  filebeat:
+    build:
+      context: ./filebeat
+    links:
+      - "logstash:logstash"
+    volumes:
+      - /var/lib/docker:/var/lib/docker:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/app:/var/app
+
+  logstash:
+    build:
+      context: ./logstash
+    ports:
+      - "5044:5044"
+    volumes:
+      - $HOME/app:/var/app
+    links:
+      - "elasticsearch:elasticsearch"
+    depends_on:
+      - elasticsearch
+
+  elasticsearch:
+    image: elasticsearch:6.8.7
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - $HOME/app:/usr/share/elasticsearch/data
+
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  kibana:
+    image: kibana:6.8.7
+    environment:
+      SERVER_NAME: kibana.example.org
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    links:
+      - "elasticsearch:elasticsearch"
+    volumes:
+      - $HOME/app:/var/app
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
