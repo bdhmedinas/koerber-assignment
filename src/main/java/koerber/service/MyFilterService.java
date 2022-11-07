@@ -6,7 +6,12 @@ package koerber.service;
 import java.util.List;
 import java.util.UUID;
 
-import koerber.dto.MyFilterDTO;
+import koerber.dto.CreateFilterDTO;
+import koerber.dto.DeleteFilterDTO;
+import koerber.dto.DeletedFilterDTO;
+import koerber.dto.FilterDTO;
+import koerber.dto.UpdateFilterDTO;
+import koerber.exceptions.KoerberAssignmentException;
 
 /**
  * @author Bruno Medinas
@@ -14,16 +19,16 @@ import koerber.dto.MyFilterDTO;
  */
 public interface MyFilterService {
 
-	UUID create(MyFilterDTO myFilterDTO);
+	FilterDTO create(CreateFilterDTO createFilterDTO) throws KoerberAssignmentException;
 
-	void update(MyFilterDTO myFilterDTO);
+	FilterDTO update(UpdateFilterDTO updateFilterDTO, Boolean deprecateBranches) throws KoerberAssignmentException;
 
-	void delete(UUID myFilterId);
+	DeletedFilterDTO delete(DeleteFilterDTO deleteFilterDTO) throws KoerberAssignmentException;
 
-	List<MyFilterDTO> list();
+	List<FilterDTO> listLatest() throws KoerberAssignmentException;
 
-	// List<VersionDTO> listVersions(UUID myFilterId);
+	List<FilterDTO> listVersionsOfFilter(UUID correlation) throws KoerberAssignmentException;
 
-	// MyFilterDTO getFilterByVersion(Integer version);
+	FilterDTO getFilterVersion(UUID correlation, Integer version) throws KoerberAssignmentException;
 
 }

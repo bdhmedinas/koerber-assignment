@@ -32,6 +32,9 @@ services:
       - kibana
     links:
       - "logstash:logstash"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+      - ./sql/mock_data.sql:/docker-entrypoint-initdb.d/mock_data.sql
 
   filebeat:
     build:

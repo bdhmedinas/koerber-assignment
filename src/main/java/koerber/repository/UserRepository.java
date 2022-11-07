@@ -8,13 +8,13 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import koerber.entity.User;
+import koerber.entity.AssignmentUser;
 
 /**
  * @author Bruno Medinas
  *
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<AssignmentUser, UUID> {
 
 }

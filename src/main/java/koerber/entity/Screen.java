@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +19,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "SCREEN")
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,8 +26,8 @@ public class Screen {
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
-	private UUID id;
+	@Column(name = "SCREEN_ID")
+	private UUID screenId;
 	
 	@Column(name = "NAME")
 	private String name;

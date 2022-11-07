@@ -1,4 +1,4 @@
-\c assignment-db;
+# sql/mock_data.sql
 
 INSERT INTO "assignment_user" (user_id, "name") VALUES('e4bdcb7d-6510-4b86-9ba6-2e05577834f2', 'testUser1');
 INSERT INTO "assignment_user" (user_id, "name") VALUES('2df80744-8101-43d4-b676-529e5e93cda8', 'testUser2');
